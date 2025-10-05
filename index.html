@@ -7,8 +7,28 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<header>
+  <div style="display:flex; align-items:center; justify-content:center; gap:20px;">
+    <img src="logo.jpg" alt="VELORA Automation Logo" style="height:70px; width:auto;">
+    <h1>VELORA AUTOMATION</h1>
+  </div>
+  <p>AI-Powered Automation Solutions for Businesses | Chatbots | Booking & Lead Capture | Customer Support Systems</p>
+  <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Get Started</button>
+</header>
 
   <style>
+    header div {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header img {
+  height: 70px;
+  max-width: 120px;
+}
+
     /* --- Global Styles --- */
     body {
       margin: 0;
@@ -265,3 +285,4 @@
 
 </body>
 </html>
+
