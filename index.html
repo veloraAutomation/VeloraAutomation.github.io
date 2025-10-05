@@ -45,7 +45,7 @@
     .cta{background:linear-gradient(180deg,var(--primary),var(--primary-2)); color:#06121c; border:none;
       padding:10px 16px; border-radius:12px; font-weight:900; box-shadow:0 10px 30px #7fb3ff40; cursor:pointer}
 
-    /* HERO (no command box) */
+    /* HERO */
     .hero{padding:90px var(--pad) 40px}
     .hero-inner{max-width:var(--max); margin:0 auto}
     .tag{display:inline-flex; gap:8px; padding:8px 12px; border-radius:999px; background:#ffffff10; border:1px solid #ffffff18; font-weight:800; color:#aec2e3; font-size:12px}
@@ -63,40 +63,20 @@
     .trust{display:flex; gap:10px; align-items:center; margin-top:14px; color:#aebbd5; font-size:12px}
     .trust .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 6px #38d39f20}
 
-    /* Sections */
-    section{padding:60px var(--pad)}
-    .section-inner{max-width:var(--max); margin:0 auto}
-    .section-head{display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px}
-    .section-head h2{margin:0; font-size:clamp(28px,4vw,42px); font-weight:900}
-
-    /* DEMO CARDS (4 only, high contrast, calm labels) */
+    /* DEMO CARDS */
     #demos .cards{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
     @media (max-width:720px){ #demos .cards{grid-template-columns:1fr} }
-
-    #demos .card{
-      position:relative; padding:18px; border-radius:14px;
-      background:linear-gradient(180deg,#0f172a 0%, #0b1220 100%);
-      border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow);
-      transition:transform .25s ease, border-color .25s ease; text-align:left; cursor:pointer; color:var(--text);
-    }
+    #demos .card{position:relative; padding:18px; border-radius:14px; background:linear-gradient(180deg,#0f172a 0%, #0b1220 100%);
+      border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow); transition:transform .25s ease, border-color .25s ease; text-align:left; cursor:pointer; color:var(--text);}
     #demos .card:hover{transform:translateY(-4px); border-color:rgba(255,255,255,.28)}
     #demos .card h3{margin:6px 0 6px; font-weight:900; color:#fff}
     #demos .card p{margin:0 0 12px; font-weight:700; color:#cfe0ff}
-
-    /* Calm labels (not “live”) */
-    #demos .badge, #demos .pill{
-      background:transparent; border:1px solid rgba(255,255,255,.18);
-      color:#aec2e3; font-weight:600; letter-spacing:.02em; text-transform:none; box-shadow:none; cursor:default;
-    }
+    #demos .badge, #demos .pill{background:transparent; border:1px solid rgba(255,255,255,.18); color:#aec2e3; font-weight:600;}
     #demos .badge{position:static; display:inline-block; margin:0 0 8px 0; font-size:12px; padding:6px 10px; border-radius:999px}
     #demos .pillrow{display:flex; flex-wrap:wrap; gap:8px}
     #demos .pill{font-size:11px; padding:6px 10px; border-radius:999px}
-    #demos .thumb{
-      margin-top:10px; height:140px; border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(160deg,#0f172a,#0b1220); border:1px solid rgba(255,255,255,.10);
-      color:#bcd3f8; font-weight:800; letter-spacing:.08em;
-    }
+    #demos .thumb{margin-top:10px; height:140px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(160deg,#0f172a,#0b1220); border:1px solid rgba(255,255,255,.10); color:#bcd3f8; font-weight:800; letter-spacing:.08em;}
 
     /* WHY VELORA */
     .why{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
@@ -105,42 +85,20 @@
     .why .item h3{margin:6px 0 8px; font-weight:900}
     .why .item p{margin:0; color:#cfe0ff}
 
-    /* Banner */
+    /* Footer + Banner */
     .banner{margin-top:24px; padding:18px; border:1px dashed #ffffff25; border-radius:16px; background:#0e1527; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px}
-    .banner .small{color:#b8c6dd; font-size:13px}
-
-    /* Footer */
     footer{padding:40px var(--pad) 80px; border-top:1px solid #ffffff12; background:linear-gradient(180deg,#0b1220,#0a111e)}
     .footer-inner{max-width:var(--max); margin:0 auto; display:grid; grid-template-columns:1.2fr .8fr .8fr; gap:22px}
-    @media (max-width:980px){.footer-inner{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.footer-inner{grid-template-columns:1fr}}
-    .foot-col h4{margin:0 0 10px}
-    .foot-col a{display:block; color:#c6d6ee; padding:6px 0}
 
-    /* MOBILE TUNE-UP */
-    @media (max-width:720px){
-      :root{--pad:16px}
-      .brand img{width:56px;height:56px}
-      .nav-inner{padding:10px var(--pad)}
-      .cta{padding:10px 14px}
-      .hero{padding:70px var(--pad) 34px}
-      .btn, .cta{padding:12px 16px}
-      .thumb{height:120px}
-      .section-head{flex-direction:column; align-items:flex-start; gap:6px}
-      .banner{padding:16px}
-      .why .item{padding:16px}
-    }
   </style>
 </head>
 <body>
+
   <!-- NAV -->
-  <div class="nav" role="navigation" aria-label="Primary">
+  <div class="nav">
     <div class="nav-inner">
-      <a class="brand" href="#home" aria-label="VELORA AUTOMATION">
-        <img src="logo.jpg" alt="VELORA AUTOMATION logo">
-        <b>VELORA AUTOMATION</b>
-      </a>
-      <nav class="nav-links" aria-label="Primary links">
+      <a class="brand" href="#home"><img src="logo.jpg" alt="VELORA AUTOMATION logo"><b>VELORA AUTOMATION</b></a>
+      <nav class="nav-links">
         <a href="#demos">Demos</a>
         <a href="#why-velora">Why Velora</a>
         <a href="#support">Support</a>
@@ -150,7 +108,7 @@
   </div>
 
   <!-- HERO -->
-  <header id="home" class="hero" role="banner">
+  <header id="home" class="hero">
     <div class="hero-inner">
       <span class="tag">Simple • Friendly • Effective</span>
       <h1><span class="brand-word">VELORA AUTOMATION</span></h1>
@@ -164,58 +122,15 @@
     </div>
   </header>
 
-  <!-- DEMOS (4 cards) -->
+  <!-- DEMOS -->
   <section id="demos">
     <div class="section-inner">
-      <div class="section-head">
-        <h2>Demos</h2>
-        <p class="muted">Pick what you want to see. We’ll tailor the walkthrough.</p>
-      </div>
-
+      <div class="section-head"><h2>Demos</h2><p class="muted">Pick what you want to see. We’ll tailor the walkthrough.</p></div>
       <div class="cards">
-        <!-- 1) CRM + Integration -->
-        <button class="card" type="button" onclick="queueDemo('CRM + Integration')" aria-label="Open CRM + Integration demo">
-          <span class="badge">Real-time</span>
-          <h3>CRM + Integration</h3>
-          <p>Two-way sync, identity stitching, and pipeline automation with audit safety.</p>
-          <div class="pillrow">
-            <span class="pill">OAuth</span><span class="pill">Webhooks</span><span class="pill">Field Mapping</span>
-          </div>
-          <div class="thumb">CRM SYNC</div>
-        </button>
-
-        <!-- 2) Booking / Appointment -->
-        <button class="card" type="button" onclick="queueDemo('Booking / Appointment')" aria-label="Open Booking / Appointment demo">
-          <span class="badge">Frictionless</span>
-          <h3>Booking / Appointment</h3>
-          <p>Fast online scheduling with confirmations, reminders, and no-show guards.</p>
-          <div class="pillrow">
-            <span class="pill">Calendar</span><span class="pill">Reminders</span><span class="pill">Payments</span>
-          </div>
-          <div class="thumb">BOOKING</div>
-        </button>
-
-        <!-- 3) Chatbot -->
-        <button class="card" type="button" onclick="queueDemo('Chatbot')" aria-label="Open Chatbot demo">
-          <span class="badge">24/7</span>
-          <h3>Chatbot</h3>
-          <p>Instant answers for common questions with smooth handoff to your team.</p>
-          <div class="pillrow">
-            <span class="pill">Website</span><span class="pill">SMS</span><span class="pill">WhatsApp</span>
-          </div>
-          <div class="thumb">AI CHAT</div>
-        </button>
-
-        <!-- 4) Ticket Support Management -->
-        <button class="card" type="button" onclick="queueDemo('Ticket Support Management')" aria-label="Open Ticket Support Management demo">
-          <span class="badge">Organized</span>
-          <h3>Ticket Support Management</h3>
-          <p>Prioritization, tagging, duplicate merge, and smart routing to the right person.</p>
-          <div class="pillrow">
-            <span class="pill">Triage</span><span class="pill">Priority</span><span class="pill">Routing</span>
-          </div>
-          <div class="thumb">TICKETS</div>
-        </button>
+        <button class="card" onclick="queueDemo('CRM + Integration')"><span class="badge">Real-time</span><h3>CRM + Integration</h3><p>Two-way sync, identity stitching, and pipeline automation with audit safety.</p><div class="pillrow"><span class="pill">OAuth</span><span class="pill">Webhooks</span><span class="pill">Field Mapping</span></div><div class="thumb">CRM SYNC</div></button>
+        <button class="card" onclick="queueDemo('Booking / Appointment')"><span class="badge">Frictionless</span><h3>Booking / Appointment</h3><p>Fast online scheduling with confirmations, reminders, and no-show guards.</p><div class="pillrow"><span class="pill">Calendar</span><span class="pill">Reminders</span><span class="pill">Payments</span></div><div class="thumb">BOOKING</div></button>
+        <button class="card" onclick="queueDemo('Chatbot')"><span class="badge">24/7</span><h3>Chatbot</h3><p>Instant answers for common questions with smooth handoff to your team.</p><div class="pillrow"><span class="pill">Website</span><span class="pill">SMS</span><span class="pill">WhatsApp</span></div><div class="thumb">AI CHAT</div></button>
+        <button class="card" onclick="queueDemo('Ticket Support Management')"><span class="badge">Organized</span><h3>Ticket Support Management</h3><p>Prioritization, tagging, duplicate merge, and smart routing to the right person.</p><div class="pillrow"><span class="pill">Triage</span><span class="pill">Priority</span><span class="pill">Routing</span></div><div class="thumb">TICKETS</div></button>
       </div>
 
       <div class="banner">
@@ -231,162 +146,73 @@
   <!-- WHY VELORA -->
   <section id="why-velora">
     <div class="section-inner">
-      <div class="section-head">
-        <h2>Why VELORA AUTOMATION</h2>
-        <p class="muted">We keep it simple: more bookings, less busywork.</p>
-      </div>
+      <div class="section-head"><h2>Why VELORA AUTOMATION</h2><p class="muted">We keep it simple: more bookings, less busywork.</p></div>
       <div class="why">
-        <div class="item">
-          <h3>Easy to use</h3>
-          <p>No tech talk. We set it up and show your team in minutes.</p>
-        </div>
-        <div class="item">
-          <h3>Trusted & private</h3>
-          <p>Your client info stays safe. You choose who can see what.</p>
-        </div>
-        <div class="item">
-          <h3>Real results</h3>
-          <p>More confirmed appointments and fewer no-shows, week after week.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SUPPORT -->
-  <section id="support">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>Support</h2>
-        <p class="muted">Friendly help from real people.</p>
-      </div>
-      <div class="card" style="background:linear-gradient(180deg,#0f172a,#0b1220); border:1px solid rgba(255,255,255,.12);">
-        <h3 style="font-weight:900">We’re here to help</h3>
-        <p>Questions or special requests? Book a live session or start a chat.</p>
-        <div class="pillrow">
-          <button class="btn btn-primary" id="openDemo3">Book a Demo</button>
-          <a class="btn" href="#chat">Open Chat</a>
-        </div>
+        <div class="item"><h3>Easy to use</h3><p>No tech talk. We set it up and show your team in minutes.</p></div>
+        <div class="item"><h3>Trusted & private</h3><p>Your client info stays safe. You choose who can see what.</p></div>
+        <div class="item"><h3>Real results</h3><p>More confirmed appointments and fewer no-shows, week after week.</p></div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="foot-col">
-        <h4><b>VELORA AUTOMATION</b></h4>
-        <p class="muted">Book more clients. Save more time.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Explore</h4>
-        <a href="#demos">Demos</a>
-        <a href="#why-velora">Why Velora</a>
-        <a href="#support">Support</a>
-      </div>
-      <div class="foot-col">
-        <h4>Legal</h4>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Status</a>
-      </div>
-    </div>
-  </footer>
+  <footer><div class="footer-inner"><div><h4><b>VELORA AUTOMATION</b></h4><p class="muted">Book more clients. Save more time.</p></div></div></footer>
 
-  <!-- BOOK A DEMO (no Company field) -->
-  <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" aria-describedby="demoDesc" style="display:none; place-items:center; background:#00000080; position:fixed; inset:0; z-index:2000">
-  <div class="modal-card" style="width:min(760px,92vw); border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:0 20px 60px rgba(0,0,0,.55); padding:0; overflow:hidden;">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#0c1426;border-bottom:1px solid #ffffff18">
-      <b style="font-size:18px;">Book a Demo — VELORA AUTOMATION</b>
-      <button id="closeDemo" class="cta" style="background:#ffffff10; color:#e8f0ff; border:1px solid #ffffff30">×</button>
-    </div>
-    <div style="background:#0b1220;padding:0;">
-      <!-- Embedded Google Form -->
-      <iframe 
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdL6iygfS4STWTIFOKBl-BaGHWrwT2MmFv3l0FYwEQO9vzE5A/viewform?embedded=true" width="640" height="1446" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-       
-    </div>
-  </div>
-</div>
-  
-  <!-- CHAT (simple stub) -->
-  <button class="btn" id="chat" style="position:fixed; right:18px; bottom:18px; border:1px solid #ffffff25;">Chat with <b>VELORA</b></button>
-  <div id="chatWidget" style="display:none; position:fixed; right:18px; bottom:70px; width:min(380px,92vw); max-height:70vh; border:1px solid #ffffff25; background:#0f172a; border-radius:16px; box-shadow:var(--shadow); overflow:hidden; z-index:1300">
-    <div style="display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid #ffffff18; background:#0c1426">
-      <img src="logo.jpg" alt="" style="width:26px; height:26px; border-radius:6px">
-      <b>VELORA AUTOMATION</b>
-      <span style="margin-left:auto; font-size:12px; color:#9db3d2">Support</span>
-    </div>
-    <div id="chatLog" style="padding:14px; overflow:auto; display:flex; flex-direction:column; gap:10px">
-      <div style="align-self:flex-start; background:#101a30; border:1px solid #ffffff18; padding:10px 12px; border-radius:12px; font-size:14px">Hi! How can we help today?</div>
-    </div>
-    <div style="display:flex; gap:8px; padding:12px; border-top:1px solid #ffffff18; background:#0c1426">
-      <input id="chatInput" placeholder="Type a message…" style="flex:1; padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dbe8ff" />
-      <button id="chatSend" class="cta">Send</button>
+  <!-- BOOK A DEMO POPUP -->
+  <div class="modal" id="demoModal" style="display:none; place-items:center; background:#00000080; position:fixed; inset:0; z-index:2000">
+    <div class="modal-card" style="width:min(760px,92vw); border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:0 20px 60px rgba(0,0,0,.55); overflow:hidden;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#0c1426;border-bottom:1px solid #ffffff18">
+        <b style="font-size:18px;">Book a Demo — VELORA AUTOMATION</b>
+        <button id="closeDemo" class="cta" style="background:#ffffff10; color:#e8f0ff; border:1px solid #ffffff30">×</button>
+      </div>
+      <div style="background:#0b1220;">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdL6iygfS4STWTIFOKBl-BaGHWrwT2MmFv3l0FYwEQO9vzE5A/viewform?embedded=true"
+          width="100%" height="1446" frameborder="0" marginheight="0" marginwidth="0"
+          style="border:none;display:block;">
+          Loading…
+        </iframe>
+      </div>
     </div>
   </div>
 
-  <!-- JS (modal, demo queue, chat) -->
+  <!-- JS -->
   <script>
-    const $ = (s, c=document)=>c.querySelector(s);
+  const $ = (s, c=document)=>c.querySelector(s);
+  const modal = $('#demoModal');
+  const closeDemo = $('#closeDemo');
+  const openDemoButtons = ['#openDemo', '#openDemo2', '#openDemo3'].map(id => $(id)).filter(Boolean);
 
-const modal = $('#demoModal');
-const openDemoButtons = ['#openDemo', '#openDemo2', '#openDemo3']
-  .map(id => $(id))
-  .filter(Boolean);
-const closeDemo = $('#closeDemo');
+  openDemoButtons.forEach(btn => btn.addEventListener('click', () => {
+    modal.style.display = 'grid';
+    document.body.style.overflow = 'hidden';
+  }));
 
-// Open popup
-openDemoButtons.forEach(btn => btn.addEventListener('click', () => {
-  modal.style.display = 'grid';
-  document.body.style.overflow = 'hidden';
-}));
-
-// Close popup
-if (closeDemo) closeDemo.addEventListener('click', () => {
-  modal.style.display = 'none';
-  document.body.style.overflow = '';
-});
-
-// Close if clicked outside or ESC pressed
-modal.addEventListener('click', e => {
-  if (e.target === modal) {
+  if (closeDemo) closeDemo.addEventListener('click', () => {
     modal.style.display = 'none';
     document.body.style.overflow = '';
-  }
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modal.style.display === 'grid') {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-});
+  });
 
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 
-    // Modal
-    const modal=$('#demoModal'), modulesField=$('#modulesField');
-    ['#openDemo','#openDemo2','#openDemo3'].forEach(id=>{
-      const b=$(id); if(b) b.addEventListener('click',()=>{ modal.style.display='grid'; document.body.style.overflow='hidden'; (modal.querySelector('input')||modal).focus(); });
-    });
-    $('#closeDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    $('#cancelDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    modal.addEventListener('click',e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; }});
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='grid'){ modal.style.display='none'; document.body.style.overflow=''; }});
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.style.display === 'grid') {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 
-    // Demo selections -> fill form
-    const selected = new Set();
-    window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
-
-    // Chat
-    const chatBtn=$("#chat"), chatWidget=$("#chatWidget"), chatInput=$("#chatInput"), chatSend=$("#chatSend"), chatLog=$("#chatLog");
-    chatBtn.addEventListener('click',()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
-    chatSend.addEventListener('click',()=>{
-      const v=(chatInput.value||'').trim(); if(!v) return;
-      const u=document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
-      chatInput.value='';
-      setTimeout(()=>{ const b=document.createElement('div'); b.style.cssText='align-self:flex-start;background:#101a30;border:1px solid #ffffff18;padding:10px 12px;border-radius:12px;font-size:14px'; b.textContent='Thanks! We’ll get right back to you.'; chatLog.appendChild(b); chatLog.scrollTop=chatLog.scrollHeight; }, 400);
-      chatLog.scrollTop=chatLog.scrollHeight;
-    });
+  // Make demo cards open the popup
+  window.queueDemo = () => {
+    modal.style.display = 'grid';
+    document.body.style.overflow = 'hidden';
+  };
   </script>
+
 </body>
 </html>
-
