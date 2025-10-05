@@ -264,7 +264,8 @@
         <p>Questions or special requests? Book a live session or start a chat.</p>
         <div class="pillrow">
           <button class="btn btn-primary" id="openDemo3">Book a Demo</button>
-          <a class="btn" href="#chat">Open Chat</a>
+          <!-- Open Chat now triggers Voiceflow chat -->
+          <a class="btn" href="#" onclick="openVFChat(); return false;">Open Chat</a>
         </div>
       </div>
     </div>
@@ -316,24 +317,7 @@
     </div>
   </div>
 
-  <!-- CHAT (simple stub) -->
-  <button class="btn" id="chat" style="position:fixed; right:18px; bottom:18px; border:1px solid #ffffff25;">Chat with <b>VELORA</b></button>
-  <div id="chatWidget" style="display:none; position:fixed; right:18px; bottom:70px; width:min(380px,92vw); max-height:70vh; border:1px solid #ffffff25; background:#0f172a; border-radius:16px; box-shadow:var(--shadow); overflow:hidden; z-index:1300">
-    <div style="display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid #ffffff18; background:#0c1426">
-      <img src="logo.jpg" alt="" style="width:26px; height:26px; border-radius:6px">
-      <b>VELORA AUTOMATION</b>
-      <span style="margin-left:auto; font-size:12px; color:#9db3d2">Support</span>
-    </div>
-    <div id="chatLog" style="padding:14px; overflow:auto; display:flex; flex-direction:column; gap:10px">
-      <div style="align-self:flex-start; background:#101a30; border:1px solid #ffffff18; padding:10px 12px; border-radius:12px; font-size:14px">Hi! How can we help today?</div>
-    </div>
-    <div style="display:flex; gap:8px; padding:12px; border-top:1px solid #ffffff18; background:#0c1426">
-      <input id="chatInput" placeholder="Type a message…" style="flex:1; padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dbe8ff" />
-      <button id="chatSend" class="cta">Send</button>
-    </div>
-  </div>
-
-  <!-- JS (modal, demo queue, chat) -->
+  <!-- JS (modal, demo queue) -->
   <script>
     const $ = (s, c=document)=>c.querySelector(s);
 
@@ -351,16 +335,64 @@
     const selected = new Set();
     window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
 
-    // Chat
-    const chatBtn=$("#chat"), chatWidget=$("#chatWidget"), chatInput=$("#chatInput"), chatSend=$("#chatSend"), chatLog=$("#chatLog");
-    chatBtn.addEventListener('click',()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
-    chatSend.addEventListener('click',()=>{
-      const v=(chatInput.value||'').trim(); if(!v) return;
-      const u=document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
-      chatInput.value='';
-      setTimeout(()=>{ const b=document.createElement('div'); b.style.cssText='align-self:flex-start;background:#101a30;border:1px solid #ffffff18;padding:10px 12px;border-radius:12px;font-size:14px'; b.textContent='Thanks! We’ll get right back to you.'; chatLog.appendChild(b); chatLog.scrollTop=chatLog.scrollHeight; }, 400);
-      chatLog.scrollTop=chatLog.scrollHeight;
-    });
+    // Demo form submission (basic local handling - adapt to your form endpoint)
+    const demoForm = $('#demoForm');
+    if(demoForm){
+      demoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(demoForm);
+        // Simple confirmation - replace with your submission logic if needed
+        modal.style.display='none'; document.body.style.overflow='';
+        alert('Thanks! We will confirm your demo by email.');
+      });
+    }
+
+    // Helper to open Voiceflow chat widget when available
+    function openVFChat(){
+      try {
+        if (window.voiceflow && window.voiceflow.chat) {
+          // try common method names; Voiceflow client may expose different helpers
+          if (typeof window.voiceflow.chat.open === 'function') {
+            window.voiceflow.chat.open();
+            return;
+          }
+          if (typeof window.voiceflow.chat.show === 'function') {
+            window.voiceflow.chat.show();
+            return;
+          }
+          if (typeof window.voiceflow.chat.toggle === 'function') {
+            window.voiceflow.chat.toggle();
+            return;
+          }
+        }
+        // If widget not ready yet, gracefully inform user (or optionally retry)
+        alert('Chat is loading — please wait a moment and try again.');
+      } catch (err) {
+        console.error('Error opening Voiceflow chat:', err);
+        alert('Unable to open chat right now. Please try again later.');
+      }
+    }
+  </script>
+
+  <!-- Voiceflow Chatbot Embed -->
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow = window.voiceflow || {};
+          window.voiceflow.chat = window.voiceflow.chat || {};
+          // Load the widget
+          window.voiceflow.chat.load({
+            verify: { projectID: '68e2629566acbe3e31c3422a' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            voice: {
+              url: "https://runtime-api.voiceflow.com"
+            }
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
   </script>
 </body>
 </html>
