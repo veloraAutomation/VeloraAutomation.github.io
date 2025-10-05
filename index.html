@@ -292,9 +292,9 @@
     </div>
   </footer>
 
-  <!-- BOOK A DEMO (no Company field) -->
+  <!-- BOOK A DEMO — EMBEDDED GOOGLE FORM -->
   <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" aria-describedby="demoDesc" style="display:none; place-items:center; background:#00000080; position:fixed; inset:0; z-index:2000">
-    <div class="modal-card" style="width:min(680px,92vw); border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:var(--shadow); padding:18px;">
+    <div class="modal-card" style="width:min(980px,96vw); max-height:92vh; overflow:auto; border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:var(--shadow); padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <h3 id="demoTitle" style="margin:0 0 6px">Book a Demo</h3>
@@ -302,17 +302,22 @@
         </div>
         <button id="closeDemo" class="cta" style="background:#ffffff10; color:#e8f0ff; border:1px solid #ffffff30">Close</button>
       </div>
-      <form id="demoForm" style="display:grid; gap:12px; grid-template-columns:1fr 1fr; margin-top:12px">
-        <input class="full" type="text" name="name" placeholder="Full name" autocomplete="name" required style="grid-column:1/-1; padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dce7fb">
-        <input type="email" name="email" placeholder="Email" autocomplete="email" required style="padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dce7fb">
-        <input type="tel" name="phone" placeholder="Phone (optional)" autocomplete="tel" style="padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dce7fb">
-        <input class="full" type="text" name="modules" id="modulesField" placeholder="Selected demos (auto-filled)" style="grid-column:1/-1; padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dce7fb">
-        <textarea class="full" name="notes" rows="4" placeholder="Anything specific you’d like to see?" style="grid-column:1/-1; padding:12px 14px; border-radius:12px; border:1px solid #ffffff22; background:#0f172a; color:#dce7fb"></textarea>
-        <div class="row full" style="grid-column:1/-1; display:flex; gap:10px; justify-content:flex-end">
-          <button type="button" id="cancelDemo" class="btn">Cancel</button>
-          <button type="submit" class="btn btn-primary">Request Demo</button>
+
+      <!-- Embedded Google Form iframe (your provided form) -->
+      <div style="margin-top:12px;">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdL6iygfS4STWTIFOKBl-BaGHWrwT2MmFv3l0FYwEQO9vzE5A/viewform?embedded=true"
+          width="100%" height="720" frameborder="0" marginheight="0" marginwidth="0"
+          style="border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.06); background:#fff"
+          data-gform>
+          Loading…
+        </iframe>
+
+        <!-- small control row -->
+        <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end">
+          <button type="button" id="cancelDemo" class="btn">Close</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -337,26 +342,52 @@
   <script>
     const $ = (s, c=document)=>c.querySelector(s);
 
-    // Modal
-    const modal=$('#demoModal'), modulesField=$('#modulesField');
-    ['#openDemo','#openDemo2','#openDemo3'].forEach(id=>{
-      const b=$(id); if(b) b.addEventListener('click',()=>{ modal.style.display='grid'; document.body.style.overflow='hidden'; (modal.querySelector('input')||modal).focus(); });
-    });
-    $('#closeDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    $('#cancelDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    modal.addEventListener('click',e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; }});
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='grid'){ modal.style.display='none'; document.body.style.overflow=''; }});
+    // Modal & modulesField (may be null because we embedded the Google Form)
+    const modal = $('#demoModal');
+    let modulesField = $('#modulesField'); // will be null with the embedded iframe approach
 
-    // Demo selections -> fill form
+    // open modal buttons
+    ['#openDemo','#openDemo2','#openDemo3'].forEach(id=>{
+      const b = $(id);
+      if(b) b.addEventListener('click', ()=>{
+        modal.style.display = 'grid';
+        document.body.style.overflow = 'hidden';
+        // focus the close button for accessibility (can't focus inside cross-origin iframe)
+        (modal.querySelector('#closeDemo') || modal).focus();
+      });
+    });
+
+    // close buttons
+    const closeBtn = $('#closeDemo');
+    if (closeBtn) closeBtn.addEventListener('click', ()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    const cancelBtn = $('#cancelDemo');
+    if (cancelBtn) cancelBtn.addEventListener('click', ()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+
+    // click outside to close
+    modal.addEventListener('click', e => { if (e.target === modal) { modal.style.display='none'; document.body.style.overflow=''; }});
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.style.display === 'grid') { modal.style.display = 'none'; document.body.style.overflow = ''; }});
+
+    // Demo selections -> update local selected state (keeps working)
     const selected = new Set();
-    window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
+    window.queueDemo = name => {
+      if (selected.has(name)) selected.delete(name); else selected.add(name);
+      const modulesVal = Array.from(selected).join(', ');
+      if (modulesField) modulesField.value = modulesVal; // safe guard if null
+
+      // OPTIONAL: If you want selected demos to prefill into the Google Form field,
+      // we can update the iframe.src here adding &entry.<ID>=... but that requires the Google Form "entry.ID".
+      // I can add this for you if you give me the "entry.XXXXX" for that Google Form field.
+
+      modal.style.display='grid';
+      document.body.style.overflow='hidden';
+    };
 
     // Chat
     const chatBtn=$("#chat"), chatWidget=$("#chatWidget"), chatInput=$("#chatInput"), chatSend=$("#chatSend"), chatLog=$("#chatLog");
-    chatBtn.addEventListener('click',()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
-    chatSend.addEventListener('click',()=>{
-      const v=(chatInput.value||'').trim(); if(!v) return;
-      const u=document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
+    if (chatBtn) chatBtn.addEventListener('click', ()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
+    if (chatSend) chatSend.addEventListener('click', ()=>{
+      const v = (chatInput.value || '').trim(); if(!v) return;
+      const u = document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
       chatInput.value='';
       setTimeout(()=>{ const b=document.createElement('div'); b.style.cssText='align-self:flex-start;background:#101a30;border:1px solid #ffffff18;padding:10px 12px;border-radius:12px;font-size:14px'; b.textContent='Thanks! We’ll get right back to you.'; chatLog.appendChild(b); chatLog.scrollTop=chatLog.scrollHeight; }, 400);
       chatLog.scrollTop=chatLog.scrollHeight;
