@@ -179,6 +179,32 @@
   color: #cfe0ff !important;
   font-weight: 900;
 }
+/* ===== Make demo labels look calm (not live buttons) ===== */
+#demos .badge,
+#demos .pill{
+  background: transparent !important;        /* no filled chip */
+  border: 1px solid rgba(255,255,255,.18) !important;
+  color: #aec2e3 !important;                 /* softer text */
+  font-weight: 600 !important;               /* less bold */
+  letter-spacing: .02em;
+  text-transform: none !important;           /* no ALL CAPS */
+  box-shadow: none !important;               /* no glow */
+  cursor: default !important;                /* not clickable */
+}
+
+#demos .pillrow{ gap: 8px; }
+#demos .badge{ 
+  position: static;                           /* remove floating tag feel */
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Keep card headings bold and body readable */
+#demos .card h3{ font-weight: 900; color: #fff; }
+#demos .card p{  font-weight: 700; color: #cfe0ff; }
+
+/* Optional: slim down the thumb text so it doesn't feel "live" */
+#demos .thumb{ color:#bcd3f8 !important; font-weight:800; letter-spacing:.08em; }
 
 </style>
 </head>
@@ -416,5 +442,6 @@
   </script>
 </body>
 </html>
+
 
 
