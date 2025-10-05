@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VELORA AUTOMATION — Book More Clients, Save More Time</title>
-  <meta name="description" content="VELORA AUTOMATION helps local businesses book more clients and save more time with automations, CRM integration, appointments, chatbots, and ticketing." />
+  <meta name="description" content="VELORA AUTOMATION helps local businesses book more clients and save more time with smart automations, CRM + integrations, appointments, chatbots, and ticketing." />
   <link rel="icon" href="logo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#0b1220">
+
   <style>
     :root{
       --bg:#0b1220; --text:#e8f0ff; --muted:#a5b4cf;
       --primary:#7fb3ff; --primary-2:#a8d4ff; --ok:#38d39f;
       --shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.02);
-      --radius:14px; --radius-lg:22px; --max:1200px;
-      --pad:22px;
+      --radius:14px; --radius-lg:22px; --max:1200px; --pad:22px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -45,12 +45,15 @@
     .cta{background:linear-gradient(180deg,var(--primary),var(--primary-2)); color:#06121c; border:none;
       padding:10px 16px; border-radius:12px; font-weight:900; box-shadow:0 10px 30px #7fb3ff40; cursor:pointer}
 
-    /* HERO (right preview REMOVED per your request) */
+    /* HERO (no command box) */
     .hero{padding:90px var(--pad) 40px}
     .hero-inner{max-width:var(--max); margin:0 auto}
     .tag{display:inline-flex; gap:8px; padding:8px 12px; border-radius:999px; background:#ffffff10; border:1px solid #ffffff18; font-weight:800; color:#aec2e3; font-size:12px}
-    .brand-word{background:linear-gradient(92deg,#ffffff 0%,#cfe4ff 35%,var(--primary) 70%,var(--primary-2) 100%);
-      -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:0 10px 34px #7fb3ff30; font-weight:900; text-transform:uppercase}
+    .brand-word{
+      background:linear-gradient(92deg,#ffffff 0%,#cfe4ff 35%,var(--primary) 70%,var(--primary-2) 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:0 10px 34px #7fb3ff30;
+      font-weight:900; text-transform:uppercase;
+    }
     h1{margin:16px 0 6px; font-size:clamp(40px,7vw,74px); line-height:1.05}
     .subtitle{font-weight:900; letter-spacing:.06em; color:#bcd3f8; margin:4px 0 18px}
     .hero p{color:#cbd6ea; margin:0 0 22px; max-width:760px}
@@ -64,32 +67,47 @@
     section{padding:60px var(--pad)}
     .section-inner{max-width:var(--max); margin:0 auto}
     .section-head{display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px}
-    .section-head h2{margin:0; font-size:clamp(28px,4vw,42px)}
+    .section-head h2{margin:0; font-size:clamp(28px,4vw,42px); font-weight:900}
 
-    /* Cards */
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    @media (max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:720px){.cards{grid-template-columns:1fr}}
-    .card{position:relative; padding:18px; border-radius:14px; border:1px solid #ffffff1a; background:linear-gradient(180deg,#0c1426,#0c1528);
-      box-shadow:var(--shadow); transition:transform .25s ease, border-color .25s ease; text-align:left; cursor:pointer}
-    .card:hover{transform:translateY(-4px); border-color:#ffffff30}
-    .badge{position:absolute; top:14px; right:14px; font-size:11px; padding:6px 10px; border-radius:999px; background:#ffffff0f; border:1px solid #ffffff22}
-    .card h3{margin:8px 0 8px; font-weight:900}
-    .card p{margin:0 0 14px; color:#cbd6ea}
-    .pillrow{display:flex; flex-wrap:wrap; gap:8px}
-    .pill{font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid #ffffff20; background:#0f172a}
-    .thumb{margin-top:14px; height:150px; border-radius:12px; border:1px solid #ffffff12; display:flex; align-items:center; justify-content:center; letter-spacing:.12em; font-weight:900; color:#a9c0df}
+    /* DEMO CARDS (4 only, high contrast, calm labels) */
+    #demos .cards{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    @media (max-width:720px){ #demos .cards{grid-template-columns:1fr} }
 
-    /* Banner */
-    .banner{margin-top:24px; padding:18px; border:1px dashed #ffffff25; border-radius:16px; background:#0e1527; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px}
-    .banner .small{color:#b8c6dd; font-size:13px}
+    #demos .card{
+      position:relative; padding:18px; border-radius:14px;
+      background:linear-gradient(180deg,#0f172a 0%, #0b1220 100%);
+      border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow);
+      transition:transform .25s ease, border-color .25s ease; text-align:left; cursor:pointer; color:var(--text);
+    }
+    #demos .card:hover{transform:translateY(-4px); border-color:rgba(255,255,255,.28)}
+    #demos .card h3{margin:6px 0 6px; font-weight:900; color:#fff}
+    #demos .card p{margin:0 0 12px; font-weight:700; color:#cfe0ff}
 
-    /* Why Velora (simple & trust) */
+    /* Calm labels (not “live”) */
+    #demos .badge, #demos .pill{
+      background:transparent; border:1px solid rgba(255,255,255,.18);
+      color:#aec2e3; font-weight:600; letter-spacing:.02em; text-transform:none; box-shadow:none; cursor:default;
+    }
+    #demos .badge{position:static; display:inline-block; margin:0 0 8px 0; font-size:12px; padding:6px 10px; border-radius:999px}
+    #demos .pillrow{display:flex; flex-wrap:wrap; gap:8px}
+    #demos .pill{font-size:11px; padding:6px 10px; border-radius:999px}
+    #demos .thumb{
+      margin-top:10px; height:140px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(160deg,#0f172a,#0b1220); border:1px solid rgba(255,255,255,.10);
+      color:#bcd3f8; font-weight:800; letter-spacing:.08em;
+    }
+
+    /* WHY VELORA */
     .why{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
     @media (max-width:980px){.why{grid-template-columns:1fr}}
     .why .item{padding:18px; border-radius:14px; border:1px solid #ffffff18; background:linear-gradient(180deg,#0f172a,#0b1220); box-shadow:var(--shadow)}
     .why .item h3{margin:6px 0 8px; font-weight:900}
     .why .item p{margin:0; color:#cfe0ff}
+
+    /* Banner */
+    .banner{margin-top:24px; padding:18px; border:1px dashed #ffffff25; border-radius:16px; background:#0e1527; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px}
+    .banner .small{color:#b8c6dd; font-size:13px}
 
     /* Footer */
     footer{padding:40px var(--pad) 80px; border-top:1px solid #ffffff12; background:linear-gradient(180deg,#0b1220,#0a111e)}
@@ -99,7 +117,7 @@
     .foot-col h4{margin:0 0 10px}
     .foot-col a{display:block; color:#c6d6ee; padding:6px 0}
 
-    /* MOBILE POLISH */
+    /* MOBILE TUNE-UP */
     @media (max-width:720px){
       :root{--pad:16px}
       .brand img{width:56px;height:56px}
@@ -108,7 +126,6 @@
       .hero{padding:70px var(--pad) 34px}
       .btn, .cta{padding:12px 16px}
       .thumb{height:120px}
-      .card{padding:16px}
       .section-head{flex-direction:column; align-items:flex-start; gap:6px}
       .banner{padding:16px}
       .why .item{padding:16px}
@@ -147,7 +164,7 @@
     </div>
   </header>
 
-  <!-- DEMOS (your “old” pro names) -->
+  <!-- DEMOS (4 cards) -->
   <section id="demos">
     <div class="section-inner">
       <div class="section-head">
@@ -156,48 +173,47 @@
       </div>
 
       <div class="cards">
-        <!-- CRM Integration -->
-        <button class="card" type="button" onclick="queueDemo('CRM Integration')" aria-label="Open CRM Integration demo">
+        <!-- 1) CRM + Integration -->
+        <button class="card" type="button" onclick="queueDemo('CRM + Integration')" aria-label="Open CRM + Integration demo">
           <span class="badge">Real-time</span>
-          <h3>CRM Integration</h3>
+          <h3>CRM + Integration</h3>
           <p>Two-way sync, identity stitching, and pipeline automation with audit safety.</p>
-          <div class="pillrow"><span class="pill">OAuth</span><span class="pill">Webhooks</span><span class="pill">Field Mapping</span></div>
+          <div class="pillrow">
+            <span class="pill">OAuth</span><span class="pill">Webhooks</span><span class="pill">Field Mapping</span>
+          </div>
           <div class="thumb">CRM SYNC</div>
         </button>
 
-        <!-- Booking / Appointment -->
-        <button class="card" type="button" onclick="queueDemo('Booking / Appointment')" aria-label="Open Booking demo">
+        <!-- 2) Booking / Appointment -->
+        <button class="card" type="button" onclick="queueDemo('Booking / Appointment')" aria-label="Open Booking / Appointment demo">
           <span class="badge">Frictionless</span>
           <h3>Booking / Appointment</h3>
           <p>Fast online scheduling with confirmations, reminders, and no-show guards.</p>
-          <div class="pillrow"><span class="pill">Calendar</span><span class="pill">Reminders</span><span class="pill">Payments</span></div>
+          <div class="pillrow">
+            <span class="pill">Calendar</span><span class="pill">Reminders</span><span class="pill">Payments</span>
+          </div>
           <div class="thumb">BOOKING</div>
         </button>
 
-        <!-- Chatbot -->
+        <!-- 3) Chatbot -->
         <button class="card" type="button" onclick="queueDemo('Chatbot')" aria-label="Open Chatbot demo">
           <span class="badge">24/7</span>
           <h3>Chatbot</h3>
           <p>Instant answers for common questions with smooth handoff to your team.</p>
-          <div class="pillrow"><span class="pill">Website</span><span class="pill">SMS</span><span class="pill">WhatsApp</span></div>
+          <div class="pillrow">
+            <span class="pill">Website</span><span class="pill">SMS</span><span class="pill">WhatsApp</span>
+          </div>
           <div class="thumb">AI CHAT</div>
         </button>
 
-        <!-- Lead Capture -->
-        <button class="card" type="button" onclick="queueDemo('Lead Capture')" aria-label="Open Lead Capture demo">
-          <span class="badge">Grow</span>
-          <h3>Lead Capture</h3>
-          <p>Turn form and chat visitors into real appointments with gentle follow-ups.</p>
-          <div class="pillrow"><span class="pill">Forms</span><span class="pill">Chat</span><span class="pill">Follow-ups</span></div>
-          <div class="thumb">LEADS</div>
-        </button>
-
-        <!-- Ticket Support Management -->
-        <button class="card" type="button" onclick="queueDemo('Ticket Support Management')" aria-label="Open Ticket Management demo">
+        <!-- 4) Ticket Support Management -->
+        <button class="card" type="button" onclick="queueDemo('Ticket Support Management')" aria-label="Open Ticket Support Management demo">
           <span class="badge">Organized</span>
           <h3>Ticket Support Management</h3>
           <p>Prioritization, tagging, duplicate merge, and smart routing to the right person.</p>
-          <div class="pillrow"><span class="pill">Triage</span><span class="pill">Priority</span><span class="pill">Routing</span></div>
+          <div class="pillrow">
+            <span class="pill">Triage</span><span class="pill">Priority</span><span class="pill">Routing</span>
+          </div>
           <div class="thumb">TICKETS</div>
         </button>
       </div>
@@ -243,8 +259,8 @@
         <h2>Support</h2>
         <p class="muted">Friendly help from real people.</p>
       </div>
-      <div class="card">
-        <h3>We’re here to help</h3>
+      <div class="card" style="background:linear-gradient(180deg,#0f172a,#0b1220); border:1px solid rgba(255,255,255,.12);">
+        <h3 style="font-weight:900">We’re here to help</h3>
         <p>Questions or special requests? Book a live session or start a chat.</p>
         <div class="pillrow">
           <button class="btn btn-primary" id="openDemo3">Book a Demo</button>
@@ -276,7 +292,7 @@
     </div>
   </footer>
 
-  <!-- BOOK A DEMO (Company field is NOT present) -->
+  <!-- BOOK A DEMO (no Company field) -->
   <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" aria-describedby="demoDesc" style="display:none; place-items:center; background:#00000080; position:fixed; inset:0; z-index:2000">
     <div class="modal-card" style="width:min(680px,92vw); border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:var(--shadow); padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -320,27 +336,26 @@
   <!-- JS (modal, demo queue, chat) -->
   <script>
     const $ = (s, c=document)=>c.querySelector(s);
-    const $$= (s, c=document)=>Array.from(c.querySelectorAll(s));
 
     // Modal
-    const modal=$('#demoModal'), openers=['#openDemo','#openDemo2','#openDemo3'].map(id=>$(id)).filter(Boolean),
-          closeBtn=$('#closeDemo'), cancelBtn=$('#cancelDemo'), modulesField=$('#modulesField');
-    function openModal(){ modal.style.display='grid'; document.body.style.overflow='hidden'; (modal.querySelector('input')||modal).focus(); }
-    function closeModal(){ modal.style.display='none'; document.body.style.overflow=''; }
-    openers.forEach(b=>b.addEventListener('click',openModal));
-    closeBtn.addEventListener('click',closeModal); cancelBtn.addEventListener('click',closeModal);
-    modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='grid') closeModal(); });
+    const modal=$('#demoModal'), modulesField=$('#modulesField');
+    ['#openDemo','#openDemo2','#openDemo3'].forEach(id=>{
+      const b=$(id); if(b) b.addEventListener('click',()=>{ modal.style.display='grid'; document.body.style.overflow='hidden'; (modal.querySelector('input')||modal).focus(); });
+    });
+    $('#closeDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    $('#cancelDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    modal.addEventListener('click',e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; }});
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='grid'){ modal.style.display='none'; document.body.style.overflow=''; }});
 
     // Demo selections -> fill form
     const selected = new Set();
-    window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); openModal(); };
+    window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
 
     // Chat
     const chatBtn=$("#chat"), chatWidget=$("#chatWidget"), chatInput=$("#chatInput"), chatSend=$("#chatSend"), chatLog=$("#chatLog");
     chatBtn.addEventListener('click',()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
     chatSend.addEventListener('click',()=>{
-      const v=chatInput.value.trim(); if(!v) return;
+      const v=(chatInput.value||'').trim(); if(!v) return;
       const u=document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
       chatInput.value='';
       setTimeout(()=>{ const b=document.createElement('div'); b.style.cssText='align-self:flex-start;background:#101a30;border:1px solid #ffffff18;padding:10px 12px;border-radius:12px;font-size:14px'; b.textContent='Thanks! We’ll get right back to you.'; chatLog.appendChild(b); chatLog.scrollTop=chatLog.scrollHeight; }, 400);
