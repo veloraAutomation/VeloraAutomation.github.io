@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELORA Automation</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- Global Styles --- */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #F0F0F0;
+      color: #3E363F;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* --- Header / Hero --- */
+    header {
+      background: linear-gradient(135deg, #002349, #957C3D);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      background: #6ACFC7;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #4ABBB6;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #002349;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #6ACFC7, #F0F0F0);
+      border-radius: 12px;
+      padding: 30px;
+      flex: 1 1 280px;
+      min-width: 280px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: #002349;
+    }
+
+    /* --- Projects / Portfolio --- */
+    .projects {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .project-card h4 {
+      margin-bottom: 10px;
+      color: #002349;
+    }
+
+    /* --- Contact / Form --- */
+    .contact {
+      background: #002349;
+      color: white;
+      text-align: center;
+    }
+
+    .contact h2 {
+      color: white;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-form input, .contact-form textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      background: #6ACFC7;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #4ABBB6;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #3E363F;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header / Hero -->
+  <header>
+    <h1>VELORA Automation</h1>
+    <p>AI-Powered Automation Solutions | Chatbots | Booking & Lead Capture</p>
+    <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Get Started</button>
+  </header>
+
+  <!-- Features / Services -->
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>AI Chatbots</h3>
+        <p>Custom chatbots to automate customer support and enhance engagement.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Booking & Scheduling</h3>
+        <p>Seamless booking system integrations for effortless client management.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Lead Capture & CRM</h3>
+        <p>Efficient lead capture and workflow automation to grow your business.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects / Portfolio -->
+  <section id="portfolio">
+    <h2>Our Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h4>AI Chatbot Demo</h4>
+        <p>Embed your Overflow chatbot code here (copy-paste snippet).</p>
+      </div>
+      <div class="project-card">
+        <h4>Booking Automation</h4>
+        <p>Demo of scheduling integration for clients and businesses.</p>
+      </div>
+      <div class="project-card">
+        <h4>Lead Capture System</h4>
+        <p>Showcase your lead capture and client management solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Lead Capture -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>Ready to automate your business? Get in touch!</p>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 VELORA Automation. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
