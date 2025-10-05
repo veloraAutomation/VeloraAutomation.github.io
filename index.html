@@ -352,23 +352,15 @@
     window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
 
     // Chat
-    <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68e2629566acbe3e31c3422a' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
+    const chatBtn=$("#chat"), chatWidget=$("#chatWidget"), chatInput=$("#chatInput"), chatSend=$("#chatSend"), chatLog=$("#chatLog");
+    chatBtn.addEventListener('click',()=> chatWidget.style.display = chatWidget.style.display==='block'?'none':'block');
+    chatSend.addEventListener('click',()=>{
+      const v=(chatInput.value||'').trim(); if(!v) return;
+      const u=document.createElement('div'); u.style.cssText='align-self:flex-end;background:#d7e7ff;color:#06121f;padding:10px 12px;border-radius:12px;font-size:14px'; u.textContent=v; chatLog.appendChild(u);
+      chatInput.value='';
+      setTimeout(()=>{ const b=document.createElement('div'); b.style.cssText='align-self:flex-start;background:#101a30;border:1px solid #ffffff18;padding:10px 12px;border-radius:12px;font-size:14px'; b.textContent='Thanks! We’ll get right back to you.'; chatLog.appendChild(b); chatLog.scrollTop=chatLog.scrollHeight; }, 400);
+      chatLog.scrollTop=chatLog.scrollHeight;
+    });
   </script>
 </body>
 </html>
-
