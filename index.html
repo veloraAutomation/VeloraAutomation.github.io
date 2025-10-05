@@ -129,6 +129,57 @@
     color: var(--text); 
     text-decoration: none; 
   }
+    /* ==== DEMO CARDS – FIX LOOK & CONTRAST ==== */
+#demos .cards { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+@media (max-width: 720px){ #demos .cards { grid-template-columns: 1fr; } }
+
+#demos .card{
+  background: linear-gradient(180deg, #0f172a 0%, #0b1220 100%) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  color: var(--text);
+}
+#demos .card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,.28);
+}
+
+/* Headings & body – bright + bold and LEFT aligned */
+#demos .card h3{
+  color: #ffffff !important;
+  font-weight: 900;
+  margin-bottom: 6px;
+  text-align: left;
+}
+#demos .card p{
+  color: #cfe0ff !important;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Pills / badges – readable */
+#demos .badge{
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #dbe7ff;
+  font-weight: 700;
+}
+#demos .pillrow{ gap: 10px; }
+#demos .pill{
+  background: #0b152a;
+  border: 1px solid rgba(255,255,255,.18);
+  color: #dbe7ff !important;
+  font-weight: 700;
+}
+
+/* Thumb panel text */
+#demos .thumb{
+  background: linear-gradient(160deg, #0f172a, #0b1220);
+  border-color: rgba(255,255,255,.10);
+  color: #cfe0ff !important;
+  font-weight: 900;
+}
+
 </style>
 </head>
 <body>
@@ -365,4 +416,5 @@
   </script>
 </body>
 </html>
+
 
