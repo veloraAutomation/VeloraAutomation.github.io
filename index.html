@@ -144,7 +144,8 @@
         <a href="#demos">Demos</a>
         <a href="#why-velora">Why Velora</a>
         <a href="#support">Support</a>
-        <button class="cta" id="openDemo">Book a Demo</button>
+        <!-- Open chatbot instead of modal -->
+        <button class="cta" id="openDemo" data-open-chat>Book a Demo</button>
       </nav>
     </div>
   </div>
@@ -164,7 +165,7 @@
     </div>
   </header>
 
-  <!-- DEMOS (4 cards) -->
+  <!-- DEMOS -->
   <section id="demos">
     <div class="section-inner">
       <div class="section-head">
@@ -221,7 +222,8 @@
       <div class="banner">
         <div class="small">Want a quick, personalized walkthrough?</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <button class="btn btn-primary" id="openDemo2">Book a Demo</button>
+          <!-- Open chatbot instead of modal -->
+          <button class="btn btn-primary" id="openDemo2" data-open-chat>Book a Demo</button>
           <a class="btn" href="#support">Chat with Support</a>
         </div>
       </div>
@@ -263,8 +265,8 @@
         <h3 style="font-weight:900">We’re here to help</h3>
         <p>Questions or special requests? Book a live session or start a chat.</p>
         <div class="pillrow">
-          <button class="btn btn-primary" id="openDemo3">Book a Demo</button>
-          <!-- Open Chat now triggers Voiceflow chat -->
+          <!-- Open chatbot instead of modal -->
+          <button class="btn btn-primary" id="openDemo3" data-open-chat>Book a Demo</button>
           <a class="btn" href="#" onclick="openVFChat(); return false;">Open Chat</a>
         </div>
       </div>
@@ -293,7 +295,7 @@
     </div>
   </footer>
 
-  <!-- BOOK A DEMO (no Company field) -->
+  <!-- (Modal kept but no longer used for booking; can be deleted if you want) -->
   <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" aria-describedby="demoDesc" style="display:none; place-items:center; background:#00000080; position:fixed; inset:0; z-index:2000">
     <div class="modal-card" style="width:min(680px,92vw); border-radius:18px; border:1px solid #ffffff22; background:linear-gradient(180deg,#0d1426,#0a1222); box-shadow:var(--shadow); padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -317,81 +319,85 @@
     </div>
   </div>
 
-  <!-- JS (modal, demo queue) -->
+  <!-- JS -->
   <script>
     const $ = (s, c=document)=>c.querySelector(s);
 
-    // Modal
+    // (Modal remains available but we are not opening it from buttons anymore)
     const modal=$('#demoModal'), modulesField=$('#modulesField');
-    ['#openDemo','#openDemo2','#openDemo3'].forEach(id=>{
-      const b=$(id); if(b) b.addEventListener('click',()=>{ modal.style.display='grid'; document.body.style.overflow='hidden'; (modal.querySelector('input')||modal).focus(); });
-    });
-    $('#closeDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    $('#cancelDemo').addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
-    modal.addEventListener('click',e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; }});
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='grid'){ modal.style.display='none'; document.body.style.overflow=''; }});
+    $('#closeDemo')?.addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    $('#cancelDemo')?.addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    modal?.addEventListener('click',e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; }});
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal?.style.display==='grid'){ modal.style.display='none'; document.body.style.overflow=''; }});
 
-    // Demo selections -> fill form
+    // Selected demo tags (used to craft a helpful message to the chatbot)
     const selected = new Set();
-    window.queueDemo = name => { selected.has(name)?selected.delete(name):selected.add(name); modulesField.value = Array.from(selected).join(', '); modal.style.display='grid'; document.body.style.overflow='hidden'; };
+    window.queueDemo = name => {
+      if (selected.has(name)) selected.delete(name); else selected.add(name);
+      const list = Array.from(selected).join(', ');
+      if (modulesField) modulesField.value = list;
 
-    // Demo form submission (basic local handling - adapt to your form endpoint)
+      // Open chatbot and nudge with context
+      openVFChat('I want to book a demo' + (list ? ` for: ${list}` : ''));
+    };
+
+    // Open Voiceflow chat widget (with optional initial text)
+    function openVFChat(prefillText){
+      try {
+        if (window.voiceflow && window.voiceflow.chat) {
+          if (typeof window.voiceflow.chat.open === 'function') window.voiceflow.chat.open();
+          else if (typeof window.voiceflow.chat.show === 'function') window.voiceflow.chat.show();
+          else if (typeof window.voiceflow.chat.toggle === 'function') window.voiceflow.chat.toggle();
+
+          // Optional: send a starter message toward the demo path, if supported
+          if (prefillText && typeof window.voiceflow.chat.send === 'function') {
+            window.voiceflow.chat.send({ type: 'text', payload: prefillText });
+          }
+          return;
+        }
+        // Widget not ready yet — try again shortly
+        setTimeout(()=>openVFChat(prefillText), 500);
+      } catch (err) {
+        console.error('Error opening Voiceflow chat:', err);
+      }
+    }
+
+    // Open chat when any element with [data-open-chat] is clicked
+    document.addEventListener('click', function (e) {
+      const t = e.target.closest('[data-open-chat]');
+      if (!t) return;
+      e.preventDefault();
+      openVFChat('I want to book a demo');
+    });
+
+    // Keep your form submit (not used by buttons anymore)
     const demoForm = $('#demoForm');
     if(demoForm){
       demoForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const data = new FormData(demoForm);
-        // Simple confirmation - replace with your submission logic if needed
         modal.style.display='none'; document.body.style.overflow='';
         alert('Thanks! We will confirm your demo by email.');
       });
     }
-
-    // Helper to open Voiceflow chat widget when available
-    function openVFChat(){
-      try {
-        if (window.voiceflow && window.voiceflow.chat) {
-          // try common method names; Voiceflow client may expose different helpers
-          if (typeof window.voiceflow.chat.open === 'function') {
-            window.voiceflow.chat.open();
-            return;
-          }
-          if (typeof window.voiceflow.chat.show === 'function') {
-            window.voiceflow.chat.show();
-            return;
-          }
-          if (typeof window.voiceflow.chat.toggle === 'function') {
-            window.voiceflow.chat.toggle();
-            return;
-          }
-        }
-        // If widget not ready yet, gracefully inform user (or optionally retry)
-        alert('Chat is loading — please wait a moment and try again.');
-      } catch (err) {
-        console.error('Error opening Voiceflow chat:', err);
-        alert('Unable to open chat right now. Please try again later.');
-      }
-    }
   </script>
 
-  <!-- Voiceflow Chatbot Embed -->
+  <!-- Voiceflow Chatbot Embed (NEW project) -->
   <script type="text/javascript">
     (function(d, t) {
-        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-        v.onload = function() {
-          window.voiceflow = window.voiceflow || {};
-          window.voiceflow.chat = window.voiceflow.chat || {};
-          // Load the widget
-          window.voiceflow.chat.load({
-            verify: { projectID: '68e2629566acbe3e31c3422a' },
-            url: 'https://general-runtime.voiceflow.com',
-            versionID: 'production',
-            voice: {
-              url: "https://runtime-api.voiceflow.com"
-            }
-          });
-        }
-        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow = window.voiceflow || {};
+        window.voiceflow.chat = window.voiceflow.chat || {};
+        window.voiceflow.chat.load({
+          verify: { projectID: '68e51848ee62f11ffef6f04c' }, /* NEW PROJECT ID */
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: { url: "https://runtime-api.voiceflow.com" }
+        });
+      };
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
     })(document, 'script');
   </script>
 </body>
